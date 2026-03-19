@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Misiones | Jose Gabriel</title>
+    <style>
+        /* 1. VARIABLES DE PERSONALIDAD */
+        :root {
+            --color-primario: #2563eb; 
+            --color-secundario: #0f172a; 
+            --color-acento: #38bdf8; 
+            --blanco: #ffffff;
+            --gris-claro: #f8fafc;
+            --texto: #334155;
+            --sombra: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transicion: all 0.3s ease;
+            --sidebar-width: 250px;
+        }
+
+        /* RESET */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--gris-claro);
+            color: var(--texto);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* LÓGICA DEL MENÚ COLAPSABLE */
+        #menu-toggle { display: none; }
+
+        .btn-menu {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--color-secundario);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: var(--sombra);
+            font-weight: bold;
+        }
+
+        header {
+            width: var(--sidebar-width);
+            background-color: var(--color-secundario);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 5rem 1.5rem 2rem;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            transition: transform 0.4s ease;
+            z-index: 1000;
+        }
+
+        #menu-toggle:not(:checked) ~ header {
+            transform: translateX(-100%);
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: var(--color-acento);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem;
+            border-radius: 10px;
+            transition: var(--transicion);
+            display: block;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--color-acento);
+        }
+
+        .wrapper {
+            flex: 1;
+            transition: margin-left 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        #menu-toggle:checked ~ .wrapper {
+            margin-left: var(--sidebar-width);
+        }
+
+        .hero-title {
+            text-align: center;
+            padding: 5rem 1rem 2rem;
+        }
+
+        /* GRID BENTO */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--blanco);
+            padding: 2rem;
+            border-radius: 24px;
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card:hover { transform: translateY(-10px); border-color: var(--color-primario); }
+
+        .profile-card {
+            grid-column: span 2;
+            background: linear-gradient(135deg, var(--color-primario), var(--color-acento));
+            color: white;
+            text-align: center;
+        }
+
+        .motto-card {
+            grid-row: span 2;
+            background-color: var(--color-secundario);
+            color: white;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* CARGADOR DE FOTO */
+        .photo-uploader {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+        #file-input { display: none; }
+        .photo-label {
+            width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px dashed white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Imagen configurada con tu archivo */
+        #preview-img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block; /* Ahora se muestra por defecto */
+            position: absolute; 
+        }
+
+        footer { margin-top: auto; padding: 2rem; background: white; text-align: center; border-top: 1px solid #e2e8f0; }
+
+        @media (max-width: 768px) {
+            #menu-toggle:checked ~ .wrapper { margin-left: 0; }
+            main { grid-template-columns: 1fr; }
+            .profile-card { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <input type="checkbox" id="menu-toggle" checked>
+    <label for="menu-toggle" class="btn-menu">☰ Menú</label>
+
+    <header>
+        <div class="logo">⚡ CENTRAL</div>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Misiones</a></li>
+                <li><a href="#">Habilidades</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="wrapper">
+        <div class="hero-title">
+            <h1>Panel de Agente</h1>
+            <p>Sección 1° F DS | Software I</p>
+        </div>
+
+        <main>
+            <article class="card profile-card">
+                <div class="photo-uploader">
+                    <input type="file" id="file-input" accept="image/*">
+                    <label for="file-input" class="photo-label">
+                        <img id="preview-img" src="./imagenes/WIN_20260318_17_11_08_Pro.jpg" alt="Foto Jose Gabriel">
+                        <div id="upload-text" style="display: none;">📸</div>
+                    </label>
+                </div>
+                <h2>Jose Gabriel</h2>
+                <p>Especialista en Desarrollo Web</p>
+            </article>
+
+            <article class="card"><h3>🚀 Velocidad</h3><p>Eficiencia en código.</p></article>
+            <article class="card"><h3>🎨 Estilo</h3><p>Bento Grid Master.</p></article>
+            <article class="card"><h3>🛠️ Soporte</h3><p>Debug de sistemas.</p></article>
+
+            <article class="card motto-card">
+                <p>"La perseverancia convierte el código en arte."</p>
+            </article>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 - Instituto Nacional de Apopa</p>
+        </footer>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const previewImg = document.getElementById('preview-img');
+        const uploadText = document.getElementById('upload-text');
+
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    previewImg.style.display = 'block';
+                    uploadText.style.display = 'none';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
